@@ -26,7 +26,7 @@ const Header = () => {
             {/* tabs/navigations */}
             <nav
                 className={`${
-                    open ? 'flex' : 'hidden'
+                    open ? 'flex' : 'hidden md:flex'
                 } flex-col items-center gap-2 mt-2 md:gap-12 md:flex-row md:mt-0`}
             >
                 <span className="w-full py-1 text-center transition-all duration-300 bg-green-500 md:py-0 md:w-auto md:bg-transparent hover:text-gray-200 hover:underline">
@@ -45,7 +45,7 @@ const Header = () => {
             {/* buttons */}
             <div
                 className={`${
-                    open ? 'flex' : 'hidden'
+                    open ? 'flex' : 'hidden md:flex'
                 } justify-center gap-5 pb-4 mt-4 md:gap-3 md:mt-0 md:pb-0`}
             >
                 {/* btn-register */}
