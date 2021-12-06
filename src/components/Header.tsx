@@ -49,7 +49,7 @@ const Header = () => {
                 } justify-center gap-5 pb-4 mt-4 md:gap-3 md:mt-0 md:pb-0`}
             >
                 {/* btn-register */}
-                <Link href="/organization-info" passHref>
+                <Link href="/register/organization-info" passHref>
                     <button
                         type="button"
                         className="px-4 py-1 transition-all duration-300 bg-green-400 rounded-md hover:bg-purple-500"

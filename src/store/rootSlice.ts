@@ -10,12 +10,12 @@ const rootSlice = createSlice({
         email: '',
         address: '',
         org: {
-            name: '',
+            orgName: '',
             website: '',
-            role: '',
-            address: '',
-            description: '',
             country: '',
+            orgAddress: '',
+            description: '',
+            role: '',
         },
     },
     reducers: {
@@ -23,21 +23,46 @@ const rootSlice = createSlice({
             state,
             action: {
                 payload: {
-                    name: string;
+                    orgName: string;
                     website: string;
-                    role: string;
-                    address: string;
-                    description: string;
                     country: string;
+                    orgAddress: string;
+                    description: string;
                 };
                 type: string;
             }
         ) => {
-            state.org = action.payload;
+            state.org.orgName = action.payload.orgName;
+            state.org.website = action.payload.website;
+            state.org.country = action.payload.country;
+            state.org.orgAddress = action.payload.orgAddress;
+            state.org.description = action.payload.description;
+        },
+
+        setPersonalInfo: (
+            state,
+            action: {
+                payload: {
+                    name: string;
+                    email: string;
+                    phone: string;
+                    address: string;
+                    role: string;
+                    password: string;
+                };
+                type: string;
+            }
+        ) => {
+            state.name = action.payload.name;
+            state.email = action.payload.email;
+            state.phone = action.payload.phone;
+            state.address = action.payload.address;
+            state.org.role = action.payload.role;
+            state.password = action.payload.password;
         },
     },
 });
 
 export const { reducer } = rootSlice;
 
-export const { setOrgInfo } = rootSlice.actions;
+export const { setOrgInfo, setPersonalInfo } = rootSlice.actions;
