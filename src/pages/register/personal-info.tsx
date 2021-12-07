@@ -97,7 +97,7 @@ const Register: NextPage = () => {
                                 Personal Information
                             </h3>
 
-                            {fields.orgInfo.map((field) => (
+                            {fields.personalInfo.map((field) => (
                                 <TextField
                                     key={field.name}
                                     label={field.label}
