@@ -1,36 +1,43 @@
 import * as yup from 'yup';
 
-const schema = yup.object().shape({
-    name: yup
-        .string()
-        .min(3, 'Name should be atleast 3 characters long')
-        .required('Name is required'),
+const schema = {
+    orgInfo: yup.object().shape({
+        orgName: yup
+            .string()
+            .min(3, 'Organization name should be atleast 3 characters long')
+            .required('Organization name is required'),
 
-    email: yup.string().email().required('Email is required'),
+        website: yup
+            .string()
+            .url('Website is not valid')
+            .required('Organization website is required'),
 
-    phone: yup.string().required('Phone number is required'),
+        country: yup.string().required('Country is required'),
 
-    address: yup.string().required('Address is required'),
+        orgAddress: yup.string().required('Address is required'),
 
-    password: yup
-        .string()
-        .min(6, 'Password should be atleast 6 characters long')
-        .required('Password is required'),
+        description: yup.string().required('Organization description is required'),
+    }),
 
-    orgName: yup
-        .string()
-        .min(3, 'Organization name should be atleast 3 characters long')
-        .required('Organization name is required'),
+    personalInfo: yup.object().shape({
+        name: yup
+            .string()
+            .min(3, 'Name should be atleast 3 characters long')
+            .required('Name is required'),
 
-    website: yup.string().url('Website is not valid').required('Organization website is required'),
+        email: yup.string().email().required('Email is required'),
 
-    role: yup.string().required('Role is required'),
+        phone: yup.string().required('Phone number is required'),
 
-    country: yup.string().required('Country is required'),
+        address: yup.string().required('Address is required'),
 
-    orgAddress: yup.string().required('Address is required'),
+        role: yup.string().required('Role is required'),
 
-    description: yup.string().required('Organization description is required'),
-});
+        password: yup
+            .string()
+            .min(6, 'Password should be atleast 6 characters long')
+            .required('Password is required'),
+    }),
+};
 
 export default schema;

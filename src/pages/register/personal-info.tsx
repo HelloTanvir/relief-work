@@ -34,7 +34,7 @@ const Register: NextPage = () => {
         handleSubmit,
         formState: { errors },
     } = useForm({
-        resolver: yupResolver(schema),
+        resolver: yupResolver(schema.personalInfo),
     });
 
     const submitForm = async (data: FormData) => {
