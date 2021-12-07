@@ -10,10 +10,10 @@ const rootSlice = createSlice({
         email: '',
         address: '',
         org: {
-            orgName: '',
+            name: '',
             website: '',
             country: '',
-            orgAddress: '',
+            address: '',
             description: '',
             role: '',
         },
@@ -32,10 +32,10 @@ const rootSlice = createSlice({
                 type: string;
             }
         ) => {
-            state.org.orgName = action.payload.orgName;
+            state.org.name = action.payload.orgName;
             state.org.website = action.payload.website;
             state.org.country = action.payload.country;
-            state.org.orgAddress = action.payload.orgAddress;
+            state.org.address = action.payload.orgAddress;
             state.org.description = action.payload.description;
         },
 
