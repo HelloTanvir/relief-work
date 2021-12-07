@@ -3,9 +3,10 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import TextField from '../../components/TextField';
 import { setOrgInfo } from '../../store/rootSlice';
+import { RootState } from '../../store/store';
 import fields from '../../utils/RegFormFields';
 import schema from '../../utils/RegFormSchema';
 
@@ -20,6 +21,7 @@ interface FormData {
 const Register: NextPage = () => {
     const router = useRouter();
     const dispatch = useDispatch();
+    const registrationData = useSelector<RootState, RootState>((state) => state);
 
     const {
         register,
@@ -27,6 +29,13 @@ const Register: NextPage = () => {
         formState: { errors },
     } = useForm({
         resolver: yupResolver(schema.orgInfo),
+        defaultValues: {
+            orgName: registrationData.org.name,
+            website: registrationData.org.website,
+            country: registrationData.org.country,
+            orgAddress: registrationData.org.address,
+            description: registrationData.org.description,
+        },
     });
 
     const submitForm = (data: FormData) => {

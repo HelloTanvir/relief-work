@@ -35,6 +35,14 @@ const Register: NextPage = () => {
         formState: { errors },
     } = useForm({
         resolver: yupResolver(schema.personalInfo),
+        defaultValues: {
+            name: registrationData.name,
+            email: registrationData.email,
+            phone: registrationData.phone,
+            address: registrationData.address,
+            role: registrationData.org.role,
+            password: registrationData.password,
+        },
     });
 
     // if org info form is not filled up, redirect to org info form
