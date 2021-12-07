@@ -3,7 +3,7 @@ import axios from 'axios';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../../components/Loader';
@@ -25,7 +25,7 @@ interface FormData {
 const Register: NextPage = () => {
     const router = useRouter();
     const dispatch = useDispatch();
-    const registrationData = useSelector<RootState>((state) => state);
+    const registrationData = useSelector<RootState, RootState>((state) => state);
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -36,6 +36,18 @@ const Register: NextPage = () => {
     } = useForm({
         resolver: yupResolver(schema.personalInfo),
     });
+
+    // if org info form is not filled up, redirect to org info form
+    useEffect(() => {
+        const orgInfoValues = Object.values(registrationData.org);
+        orgInfoValues
+            .filter((v, i) => i !== orgInfoValues.length - 1) // filtering because role is not in the array now
+            .forEach((field) => {
+                if (!field) {
+                    router.push('/register/organization-info');
+                }
+            });
+    }, [router, registrationData.org]);
 
     const submitForm = async (data: FormData) => {
         try {
