@@ -113,6 +113,7 @@ const Register: NextPage = () => {
                                     placeholder={field.placeholder}
                                     name={field.name}
                                     className="mt-4 md:w-96"
+                                    // @ts-ignore
                                     error={errors[field.name]?.message}
                                     register={register}
                                 />
