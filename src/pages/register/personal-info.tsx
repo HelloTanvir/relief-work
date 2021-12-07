@@ -111,12 +111,24 @@ const Register: NextPage = () => {
                             ))}
                         </div>
 
-                        <button
-                            type="submit"
-                            className="px-4 py-2 text-base font-semibold text-gray-100 bg-green-700 rounded-md hover:text-white hover:bg-green-500 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-green-800 focus:ring-offset-2"
-                        >
-                            Register
-                        </button>
+                        <div className="flex gap-2 mt-3 md:gap-4 md:mt-0">
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    router.push('/register/organization-info');
+                                }}
+                                className="px-4 py-2 text-base font-semibold text-gray-100 bg-green-700 rounded-md hover:text-white hover:bg-green-500 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-green-800 focus:ring-offset-2"
+                            >
+                                Previous
+                            </button>
+
+                            <button
+                                type="submit"
+                                className="px-4 py-2 text-base font-semibold text-gray-100 bg-green-700 rounded-md hover:text-white hover:bg-green-500 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-green-800 focus:ring-offset-2"
+                            >
+                                Register
+                            </button>
+                        </div>
                     </form>
                 </div>
             </main>
