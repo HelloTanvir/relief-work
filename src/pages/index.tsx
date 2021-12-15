@@ -1,5 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import Header from '../components/Header';
+import Sidebar from '../components/Sidebar';
 
 const Home: NextPage = () => (
     <div className="relative">
@@ -9,7 +11,11 @@ const Home: NextPage = () => (
             <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <main>Relief Work</main>
+        <Header />
+
+        <main className="bg-gray-50">
+            <Sidebar />
+        </main>
     </div>
 );
 
