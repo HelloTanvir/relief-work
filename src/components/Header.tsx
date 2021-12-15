@@ -9,7 +9,7 @@ const Header = () => {
     const handleLogout = async () => {};
 
     return (
-        <header className="flex flex-col px-10 py-2 text-gray-700 transition-all duration-700 md:items-center md:justify-between md:flex-row md:px-20 md:py-3 shadow border-b">
+        <header className="flex flex-col px-10 py-2 text-gray-700 md:items-center md:justify-between md:flex-row md:px-20 md:py-3 shadow border-b">
             {/* logo and menu bar (on small device) */}
             <div className="flex items-center justify-between flex-1 md:flex-none">
                 <Link href="/">Logo</Link>
