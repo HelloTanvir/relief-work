@@ -21,7 +21,7 @@ const Sidebar = () => {
                 </SidebarHeader>
 
                 <Menu iconShape="circle">
-                    <Link href="/login" passHref>
+                    <Link href="/organizations" passHref>
                         <MenuItem icon={<VscOrganization />}>Organizations</MenuItem>
                     </Link>
 
