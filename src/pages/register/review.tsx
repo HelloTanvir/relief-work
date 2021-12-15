@@ -44,13 +44,18 @@ const Review: NextPage = () => {
             {/* loader */}
             {isLoading ? <Loader /> : null}
 
-            <main className="flex justify-center py-12">
-                <div className="flex flex-col items-center px-8 pt-6 pb-8 mb-4 rounded shadow-md">
+            <main
+                className="min-h-screen flex items-center justify-center md:py-0 py-12"
+                style={{ backgroundImage: 'url("/background.jpg")' }}
+            >
+                <div className="flex flex-col items-center px-8 pt-6 pb-8 rounded-lg shadow-md bg-white">
                     {/* header */}
-                    <h1 className="mb-6 text-2xl font-medium">Review your informations</h1>
+                    <h1 className="mb-6 text-xl md:text-2xl font-medium">
+                        Review your informations
+                    </h1>
 
                     {/* body */}
-                    <div className="flex flex-col items-end gap-5">
+                    <div className="flex flex-col md:items-end gap-5">
                         <div className="flex flex-col md:flex-row">
                             <div className="pb-8 mb-8 border-b md:pb-0 md:mb-0 md:border-b-0 md:pr-8 md:mr-8 md:border-r">
                                 <h3 className="text-xs italic text-gray-400">

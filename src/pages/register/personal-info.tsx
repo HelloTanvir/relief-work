@@ -66,8 +66,11 @@ const Register: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main className="flex justify-center py-9">
-                <div className="flex flex-col items-center px-8 pt-6 pb-8 mb-4 rounded shadow-md">
+            <main
+                className="min-h-screen flex items-center justify-center md:py-0 py-12"
+                style={{ backgroundImage: 'url("/background.jpg")' }}
+            >
+                <div className="flex flex-col items-center px-8 pt-6 pb-8 rounded-lg shadow-md bg-white">
                     {/* form header */}
                     <h1 className="mb-6 text-2xl font-medium">Register an account</h1>
 
