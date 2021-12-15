@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import axios from 'axios';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -57,10 +58,23 @@ const Login: NextPage = () => {
             {/* loader */}
             {isLoading ? <Loader /> : null}
 
-            <main className="flex justify-center py-12">
-                <div className="flex flex-col items-center px-8 pt-6 pb-8 mb-4 rounded shadow-md">
+            <main
+                className="h-screen flex items-center justify-center"
+                style={{ backgroundImage: 'url("/background.jpg")' }}
+            >
+                <div className="flex flex-col items-center px-8 pt-6 pb-8 mb-4 rounded-lg shadow-md bg-white">
                     {/* form header */}
-                    <h1 className="mb-6 text-2xl font-medium">Login your account</h1>
+                    <div className="mb-6 flex flex-col items-center gap-4">
+                        <h1 className="text-2xl font-medium tracking-wide">
+                            Login to your account
+                        </h1>
+                        <p className="text-sm text-gray-500 font-medium">
+                            Don&#39;t have an account yet?{' '}
+                            <span className="text-blue-600 hover:text-blue-500 transition-colors">
+                                <Link href="/register/organization-info">Sign Up</Link>
+                            </span>
+                        </p>
+                    </div>
 
                     {/* form body */}
                     <form
