@@ -1,24 +1,22 @@
 import axios from 'axios';
-import type { NextPage } from 'next';
-import { InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 
-type Data = {
+interface Data {
     isVerified: boolean;
     name: string;
     website: string;
     address: string;
     description: string;
     country: string;
-}[];
+}
 
 export const getServerSideProps = async () => {
     let token = '';
 
     if (typeof window !== 'undefined') {
-        token = localStorage.getItem('relief_work-token');
+        token = localStorage.getItem('relief_work-token') || '';
     }
 
     if (!token) {
@@ -34,7 +32,13 @@ export const getServerSideProps = async () => {
         headers: { Authorization: `Bearer ${token}` },
     });
 
-    const organizations: Data = res.data;
+    const organizations: Data[] = res.data;
+
+    if (!organizations) {
+        return {
+            notFound: true,
+        };
+    }
 
     return {
         props: {
@@ -43,9 +47,7 @@ export const getServerSideProps = async () => {
     };
 };
 
-const Organizations: NextPage = ({
-    organizations,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => (
+const Organizations = ({ organizations }: { organizations: Data[] }) => (
     <div className="relative">
         <Head>
             <title>Relief Work | Organizations</title>
@@ -55,53 +57,53 @@ const Organizations: NextPage = ({
 
         <Header />
 
-        <main style={{ height: 'calc(100vh - 57px)' }} className="bg-gray-50 flex gap-5 pr-5">
+        <main style={{ height: 'calc(100vh - 57px)' }} className="flex gap-5 pr-5 bg-gray-50">
             <Sidebar />
 
             {/* cards wrapper */}
-            <div className="mt-5 mb-5 flex-1 flex gap-5 flex-col overflow-y-auto">
+            <div className="flex flex-col flex-1 gap-5 mt-5 mb-5 overflow-y-auto">
                 {organizations.map((organization, index) => (
                     <div
                         // eslint-disable-next-line react/no-array-index-key
                         key={index}
-                        className="bg-white rounded-xl flex flex-col gap-1 py-6 px-5 shadow-md max-w-xl"
+                        className="flex flex-col max-w-xl gap-1 px-5 py-6 bg-white shadow-md rounded-xl"
                     >
-                        <div className="flex gap-2 items-center flex-wrap">
+                        <div className="flex flex-wrap items-center gap-2">
                             <span className="text-lg font-medium tracking-wide">
                                 {organization.name}
                             </span>
-                            <span className="text-gray-500 text-sm tracking-wide">
+                            <span className="text-sm tracking-wide text-gray-500">
                                 ({organization.isVerified ? 'verified' : 'not verified'})
                             </span>
                         </div>
 
-                        <div className="flex gap-2 items-center">
-                            <span className="text-gray-700 font-medium">Website :</span>
+                        <div className="flex items-center gap-2">
+                            <span className="font-medium text-gray-700">Website :</span>
                             <a
                                 href={organization.website}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="text-blue-700 tracking-wide italic text-sm"
+                                className="text-sm italic tracking-wide text-blue-700"
                             >
                                 visit the site
                             </a>
                         </div>
 
-                        <div className="flex gap-2 items-center">
-                            <span className="text-gray-700 font-medium">Country :</span>
-                            <span className="text-gray-500 tracking-wide text-sm">
+                        <div className="flex items-center gap-2">
+                            <span className="font-medium text-gray-700">Country :</span>
+                            <span className="text-sm tracking-wide text-gray-500">
                                 {organization.country}
                             </span>
                         </div>
 
-                        <div className="flex gap-2 items-center flex-wrap">
-                            <span className="text-gray-700 font-medium">Address :</span>
-                            <span className="text-gray-500 tracking-wide text-sm">
+                        <div className="flex flex-wrap items-center gap-2">
+                            <span className="font-medium text-gray-700">Address :</span>
+                            <span className="text-sm tracking-wide text-gray-500">
                                 {organization.address}
                             </span>
                         </div>
 
-                        <p className="text-gray-600 text-sm">{organization.description}</p>
+                        <p className="text-sm text-gray-600">{organization.description}</p>
                     </div>
                 ))}
             </div>
