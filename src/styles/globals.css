@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.pro-sidebar > .pro-sidebar-inner {
+  background: #fff !important;
+}
