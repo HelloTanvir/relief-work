@@ -1,62 +1,51 @@
+import axios from 'axios';
 import type { NextPage } from 'next';
+import { InferGetServerSidePropsType } from 'next';
 import Head from 'next/head';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 
-const organizations = [
-    {
-        isVerified: false,
-        name: 'test',
-        website: 'http://google.com',
-        address: 'test',
-        description: 'test',
-        country: 'Bangladesh',
-    },
-    {
-        isVerified: false,
-        name: 'test',
-        website: 'http://google.com',
-        address: 'test',
-        description: 'test',
-        country: 'Bangladesh',
-    },
-    {
-        isVerified: false,
-        name: 'test',
-        website: 'http://google.com',
-        address: 'test',
-        description:
-            'Ami onek boro programmer hoboi hobo Ami onek boro programmer hoboi hobo Ami onek boro programmer hoboi hobo',
-        country: 'Bangladesh',
-    },
-    {
-        isVerified: false,
-        name: 'test',
-        website: 'http://google.com',
-        address: 'test',
-        description: 'test',
-        country: 'Bangladesh',
-    },
-    {
-        isVerified: false,
-        name: 'test',
-        website: 'http://google.com',
-        address: 'test',
-        description: 'test',
-        country: 'Bangladesh',
-    },
-    {
-        isVerified: false,
-        name: 'test',
-        website: 'http://google.com',
-        address: 'test',
-        description:
-            'Ami onek boro programmer hoboi hobo Ami onek boro programmer hoboi hobo Ami onek boro programmer hoboi hobo',
-        country: 'Bangladesh',
-    },
-];
+type Data = {
+    isVerified: boolean;
+    name: string;
+    website: string;
+    address: string;
+    description: string;
+    country: string;
+}[];
 
-const Organizations: NextPage = () => (
+export const getServerSideProps = async () => {
+    let token = '';
+
+    if (typeof window !== 'undefined') {
+        token = localStorage.getItem('relief_work-token');
+    }
+
+    if (!token) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        };
+    }
+
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/org`, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+
+    const organizations: Data = res.data;
+
+    return {
+        props: {
+            organizations,
+        },
+    };
+};
+
+const Organizations: NextPage = ({
+    organizations,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => (
     <div className="relative">
         <Head>
             <title>Relief Work | Organizations</title>
