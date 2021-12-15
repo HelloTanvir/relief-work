@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Loader from '../../components/Loader';
 import { RootState } from '../../store/store';
@@ -12,6 +12,18 @@ const Review: NextPage = () => {
     const registrationData = useSelector<RootState, RootState>((state) => state);
 
     const [isLoading, setIsLoading] = useState(false);
+
+    // if personal info form is not filled up, redirect to personal info form
+    useEffect(() => {
+        const personalInfoValues = Object.values(registrationData);
+        personalInfoValues.pop(); // removing org fields
+        personalInfoValues.push(registrationData.org.role); // role is a personal info here
+        personalInfoValues.forEach((field) => {
+            if (!field) {
+                router.push('/register/personal-info');
+            }
+        });
+    }, [router, registrationData]);
 
     const handleSubmit = async () => {
         try {
