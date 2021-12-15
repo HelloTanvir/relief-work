@@ -32,15 +32,15 @@ const Header = () => {
                     open ? 'flex' : 'hidden md:flex'
                 } flex-col items-center gap-2 mt-2 md:gap-12 md:flex-row md:mt-0`}
             >
-                <span className="w-full py-1 text-center transition-all duration-300 bg-green-500 md:py-0 md:w-auto md:bg-transparent hover:text-gray-400 hover:underline">
+                <span className="w-full py-1 text-center transition-all duration-300 bg-gray-200 rounded-md md:py-0 md:w-auto md:bg-transparent hover:text-gray-400 hover:underline">
                     <Link href="/">Home</Link>
                 </span>
 
-                <span className="w-full py-1 text-center transition-all duration-300 bg-green-500 md:py-0 md:w-auto md:bg-transparent hover:text-gray-400 hover:underline">
+                <span className="w-full py-1 text-center transition-all duration-300 bg-gray-200 rounded-md md:py-0 md:w-auto md:bg-transparent hover:text-gray-400 hover:underline">
                     <Link href="/about-us">About Us</Link>
                 </span>
 
-                <span className="w-full py-1 text-center transition-all duration-300 bg-green-500 md:py-0 md:w-auto md:bg-transparent hover:text-gray-400 hover:underline">
+                <span className="w-full py-1 text-center transition-all duration-300 bg-gray-200 rounded-md md:py-0 md:w-auto md:bg-transparent hover:text-gray-400 hover:underline">
                     <Link href="/contact-us">Contact Us</Link>
                 </span>
             </nav>
