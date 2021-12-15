@@ -38,7 +38,7 @@ const Login: NextPage = () => {
             if (res) {
                 setIsLoading(false);
                 console.log(res.data);
-                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('relief_work-token', res.data.token);
                 router.push('/');
             }
         } catch (err) {

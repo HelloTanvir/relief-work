@@ -36,7 +36,7 @@ const Review: NextPage = () => {
 
             if (res) {
                 setIsLoading(false);
-                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('relief_work-token', res.data.token);
                 router.push('/');
             }
         } catch (err) {
