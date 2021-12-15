@@ -11,11 +11,7 @@ const Home: NextPage = () => {
 
     useEffect(() => {
         const apiResponse = async () => {
-            let token = '';
-
-            if (typeof window !== 'undefined') {
-                token = localStorage.getItem('relief_work-token') || '';
-            }
+            const token = localStorage.getItem('relief_work-token') || '';
 
             if (!token) {
                 router.push('/login');
