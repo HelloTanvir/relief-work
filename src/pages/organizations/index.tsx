@@ -56,12 +56,12 @@ const Organizations: NextPage = () => {
                 <Sidebar />
 
                 {/* cards wrapper */}
-                <div className="flex flex-col flex-1 gap-5 mt-5 mb-5 overflow-y-auto">
+                <div className="flex flex-col items-center flex-1 gap-5 mt-5 mb-5 overflow-y-auto">
                     {organizations.map((organization, index) => (
                         <div
                             // eslint-disable-next-line react/no-array-index-key
                             key={index}
-                            className="flex flex-col max-w-xl gap-1 px-5 py-6 bg-white shadow-md rounded-xl"
+                            className="flex flex-col max-w-xl gap-3 px-5 py-6 bg-white shadow-md md:gap-1 md:w-screen rounded-xl"
                         >
                             <div className="flex flex-wrap items-center gap-2">
                                 <span className="text-lg font-medium tracking-wide">
@@ -72,7 +72,7 @@ const Organizations: NextPage = () => {
                                 </span>
                             </div>
 
-                            <div className="flex items-center gap-2">
+                            <div className="flex flex-wrap items-center gap-2">
                                 <span className="font-medium text-gray-700">Website :</span>
                                 <a
                                     href={organization.website}
@@ -84,7 +84,7 @@ const Organizations: NextPage = () => {
                                 </a>
                             </div>
 
-                            <div className="flex items-center gap-2">
+                            <div className="flex flex-wrap items-center gap-2">
                                 <span className="font-medium text-gray-700">Country :</span>
                                 <span className="text-sm tracking-wide text-gray-500">
                                     {organization.country}
@@ -98,7 +98,9 @@ const Organizations: NextPage = () => {
                                 </span>
                             </div>
 
-                            <p className="text-sm text-gray-600">{organization.description}</p>
+                            <p className="text-sm font-medium text-gray-900">
+                                {organization.description}
+                            </p>
                         </div>
                     ))}
                 </div>
