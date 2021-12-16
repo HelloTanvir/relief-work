@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import Loader from '../../components/Loader';
 import { RootState } from '../../store/store';
 
@@ -38,9 +39,11 @@ const Review: NextPage = () => {
                 setIsLoading(false);
                 localStorage.setItem('relief_work-token', res.data.token);
                 router.push('/');
+                toast.success('Registration successful', { autoClose: 3000 });
             }
         } catch (err) {
             setIsLoading(false);
+            toast.error('Registration failed', { autoClose: 3000 });
             console.log(err);
         }
     };
@@ -57,17 +60,17 @@ const Review: NextPage = () => {
             {isLoading ? <Loader /> : null}
 
             <main
-                className="min-h-screen flex items-center justify-center md:py-0 py-12"
+                className="flex items-center justify-center min-h-screen py-12 md:py-0"
                 style={{ backgroundImage: 'url("/background.jpg")' }}
             >
-                <div className="flex flex-col items-center px-8 pt-6 pb-8 rounded-lg shadow-md bg-white">
+                <div className="flex flex-col items-center px-8 pt-6 pb-8 bg-white rounded-lg shadow-md">
                     {/* header */}
-                    <h1 className="mb-6 text-xl md:text-2xl font-medium">
+                    <h1 className="mb-6 text-xl font-medium md:text-2xl">
                         Review your informations
                     </h1>
 
                     {/* body */}
-                    <div className="flex flex-col md:items-end gap-5">
+                    <div className="flex flex-col gap-5 md:items-end">
                         <div className="flex flex-col md:flex-row">
                             <div className="pb-8 mb-8 border-b md:pb-0 md:mb-0 md:border-b-0 md:pr-8 md:mr-8 md:border-r">
                                 <h3 className="text-xs italic text-gray-400">

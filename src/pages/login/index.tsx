@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import Loader from '../../components/Loader';
 import TextField from '../../components/TextField';
 import fields from '../../utils/LoginFormFields';
@@ -40,9 +41,11 @@ const Login: NextPage = () => {
                 console.log(res.data);
                 localStorage.setItem('relief_work-token', res.data.token);
                 router.push('/');
+                toast.success('Logged in successfully', { autoClose: 3000 });
             }
         } catch (err) {
             setIsLoading(false);
+            toast.error('Unauthorized', { autoClose: 3000 });
             console.log(err);
         }
     };
