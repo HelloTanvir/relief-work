@@ -59,19 +59,19 @@ const Login: NextPage = () => {
             {isLoading ? <Loader /> : null}
 
             <main
-                className="h-screen flex items-center justify-center"
+                className="flex items-center justify-center h-screen"
                 style={{ backgroundImage: 'url("/background.jpg")' }}
             >
-                <div className="flex flex-col items-center px-8 pt-6 pb-8 mb-4 rounded-lg shadow-md bg-white">
+                <div className="flex flex-col items-center px-8 pt-6 pb-8 mb-4 bg-white rounded-lg shadow-md">
                     {/* form header */}
-                    <div className="mb-6 flex flex-col items-center gap-4">
+                    <div className="flex flex-col items-center gap-4 mb-6">
                         <h1 className="text-2xl font-medium tracking-wide">
                             Login to your account
                         </h1>
-                        <p className="text-sm text-gray-500 font-medium">
-                            Don&#39;t have an account yet?{' '}
-                            <span className="text-blue-600 hover:text-blue-500 transition-colors">
-                                <Link href="/register/organization-info">Sign Up</Link>
+                        <p className="text-sm font-medium text-gray-500">
+                            Don&#39;t have a profile yet?{' '}
+                            <span className="text-blue-600 transition-colors hover:text-blue-500">
+                                <Link href="/register/organization-info">Register</Link>
                             </span>
                         </p>
                     </div>
