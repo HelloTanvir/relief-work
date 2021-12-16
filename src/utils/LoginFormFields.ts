@@ -7,7 +7,7 @@ const fields = [
     },
     {
         label: 'Password',
-        type: 'text',
+        type: 'password',
         name: 'password',
         placeholder: 'Enter your password',
     },
