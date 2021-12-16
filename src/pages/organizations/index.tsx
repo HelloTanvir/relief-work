@@ -7,6 +7,7 @@ import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 
 interface Data {
+    _id: string;
     isVerified: boolean;
     name: string;
     website: string;
@@ -57,10 +58,10 @@ const Organizations: NextPage = () => {
 
                 {/* cards wrapper */}
                 <div className="flex flex-col items-center flex-1 gap-5 mt-5 mb-5 overflow-y-auto">
-                    {organizations.map((organization, index) => (
+                    {organizations.map((organization) => (
                         <div
-                            // eslint-disable-next-line react/no-array-index-key
-                            key={index}
+                            // eslint-disable-next-line no-underscore-dangle
+                            key={organization._id}
                             className="flex flex-col max-w-xl gap-3 px-5 py-6 bg-white shadow-md md:gap-1 md:w-screen rounded-xl"
                         >
                             <div className="flex flex-wrap items-center gap-2">
