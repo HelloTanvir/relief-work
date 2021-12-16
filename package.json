@@ -9,6 +9,7 @@
     "type-check": "npx tsc -w --noEmitOnError"
   },
   "dependencies": {
+    "@headlessui/react": "^1.4.2",
     "@hookform/resolvers": "^2.8.3",
     "@reduxjs/toolkit": "^1.6.2",
     "axios": "^0.24.0",

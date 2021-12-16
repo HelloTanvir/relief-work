@@ -10,11 +10,11 @@ const Sidebar = () => {
     const [collapsed, setCollapsed] = useState(true);
 
     return (
-        <div style={{ height: 'calc(100vh - 57px)' }} className="shadow border-r w-max">
+        <div style={{ height: 'calc(100vh - 57px)' }} className="border-r shadow w-max">
             <ProSidebar width={250} collapsed={collapsed}>
                 <SidebarHeader className="flex justify-end py-3 pr-5 bg-gray-200">
                     <BsArrowLeftRight
-                        className="text-white rounded-full p-1 bg-gray-700 cursor-pointer hover:bg-gray-600"
+                        className="p-1 text-white bg-gray-700 rounded-full cursor-pointer hover:bg-gray-600"
                         fontSize={22}
                         onClick={() => setCollapsed((prev) => !prev)}
                     />
@@ -25,7 +25,7 @@ const Sidebar = () => {
                         <MenuItem icon={<VscOrganization />}>Organizations</MenuItem>
                     </Link>
 
-                    <Link href="/login" passHref>
+                    <Link href="/projects" passHref>
                         <MenuItem icon={<AiTwotoneProject />}>Projects</MenuItem>
                     </Link>
                 </Menu>
