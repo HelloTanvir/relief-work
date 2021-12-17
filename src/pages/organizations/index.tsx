@@ -92,7 +92,7 @@ const Organizations: NextPage = () => {
                                     rel="noreferrer"
                                     className="text-sm italic tracking-wide text-blue-700"
                                 >
-                                    visit the site
+                                    {organization.website}
                                 </a>
                             </div>
 
