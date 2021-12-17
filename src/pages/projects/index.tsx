@@ -91,7 +91,7 @@ const Projects: NextPage = () => {
                         >
                             <div className="flex flex-wrap items-center gap-2">
                                 <span className="text-lg font-medium tracking-wide">
-                                    {project.org.name}
+                                    {project.title}
                                 </span>
                                 <span className="text-sm tracking-wide text-gray-500">
                                     ({project.status})
@@ -99,9 +99,9 @@ const Projects: NextPage = () => {
                             </div>
 
                             <div className="flex flex-wrap items-center gap-2">
-                                <span className="font-medium text-gray-700">Project :</span>
+                                <span className="font-medium text-gray-700">Organization :</span>
                                 <span className="text-sm tracking-wide text-gray-500">
-                                    {project.title}
+                                    {project.org.name}
                                 </span>
                             </div>
 
