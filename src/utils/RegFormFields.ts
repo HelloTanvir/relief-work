@@ -65,7 +65,7 @@ const fields = {
         },
         {
             label: 'Description',
-            type: 'text',
+            type: 'textarea',
             name: 'description',
             placeholder: 'Organization description',
         },

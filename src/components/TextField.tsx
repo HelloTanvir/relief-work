@@ -29,7 +29,7 @@ const TextField = ({ label, type, name, placeholder, error, className, register 
                 {label}
             </label>
 
-            {name === 'description' ? (
+            {type === 'textarea' ? (
                 <textarea
                     className={`bg-white text-gray-700 focus:outline-none focus:shadow-outline border rounded-lg py-2 px-4 block w-full appearance-none leading-normal focus:shadow-outline ${
                         error ? 'border-red-500' : 'border-gray-300 '
