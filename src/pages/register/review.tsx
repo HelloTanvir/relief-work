@@ -1,10 +1,10 @@
-import axios from 'axios';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { registerUser } from '../../apiHandlers/auth';
 import Loader from '../../components/Loader';
 import { RootState } from '../../store/store';
 
@@ -27,24 +27,17 @@ const Review: NextPage = () => {
     }, [router, registrationData]);
 
     const handleSubmit = async () => {
-        try {
-            setIsLoading(true);
+        setIsLoading(true);
 
-            const res = await axios.post(
-                `${process.env.NEXT_PUBLIC_API}/auth/register`,
-                registrationData
-            );
+        const { loggedIn } = await registerUser(registrationData);
 
-            if (res) {
-                setIsLoading(false);
-                localStorage.setItem('relief_work-token', res.data.token);
-                router.push('/');
-                toast.success('Registration successful', { autoClose: 3000 });
-            }
-        } catch (err) {
-            setIsLoading(false);
+        setIsLoading(false);
+
+        if (loggedIn) {
+            router.push('/');
+            toast.success('Registration successful', { autoClose: 3000 });
+        } else {
             toast.error('Registration failed', { autoClose: 3000 });
-            console.log(err);
         }
     };
 

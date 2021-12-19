@@ -1,18 +1,18 @@
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
-import axios from 'axios';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { logInUser } from '../../apiHandlers/auth';
 import Loader from '../../components/Loader';
 import TextField from '../../components/TextField';
 import fields from '../../utils/LoginFormFields';
 import schema from '../../utils/LoginFormSchema';
 
-interface FormData {
+export interface LoginData {
     phone: string;
     password: string;
 }
@@ -30,23 +30,22 @@ const Login: NextPage = () => {
         resolver: yupResolver(schema),
     });
 
-    const submitForm = async (data: FormData) => {
-        try {
-            setIsLoading(true);
+    useEffect(() => {
+        toast.warn('Please login or register an account', { autoClose: 3000 });
+    }, []);
 
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_API}/auth/signin`, data);
+    const submitForm = async (data: LoginData) => {
+        setIsLoading(true);
 
-            if (res) {
-                setIsLoading(false);
-                console.log(res.data);
-                localStorage.setItem('relief_work-token', res.data.token);
-                router.push('/');
-                toast.success('Logged in successfully', { autoClose: 3000 });
-            }
-        } catch (err) {
-            setIsLoading(false);
+        const { loggedIn } = await logInUser(data);
+
+        setIsLoading(false);
+
+        if (loggedIn) {
+            router.push('/');
+            toast.success('Logged in successfully', { autoClose: 3000 });
+        } else {
             toast.error('Unauthorized', { autoClose: 3000 });
-            console.log(err);
         }
     };
 
