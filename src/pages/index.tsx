@@ -1,45 +1,42 @@
-import axios from 'axios';
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { getLoggedInUser } from '../apiHandlers/auth';
 import Header from '../components/Header';
 import Loader from '../components/Loader';
 import Sidebar from '../components/Sidebar';
 
-const Home: NextPage = () => {
-    const router = useRouter();
+interface Data {
+    loggedIn: boolean;
+    user: any;
+}
 
-    const [isLoading, setIsLoading] = useState(false);
+export const getServerSideProps: GetServerSideProps = async ({ req }): { props: Data } => {
+    const token = req.cookies.relief_work_token || '';
+
+    const data = await getLoggedInUser(token);
+
+    if (!data.loggedIn) {
+        return {
+            redirect: {
+                destination: '/login',
+                permanent: false,
+            },
+        };
+    }
+
+    return {
+        props: data,
+    };
+};
+
+const Home: NextPage = ({ loggedIn }: Data) => {
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const apiResponse = async () => {
-            const token = localStorage.getItem('relief_work-token') || '';
-
-            if (!token) {
-                router.push('/login');
-            }
-
-            try {
-                setIsLoading(true);
-
-                const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/auth/me`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-
-                if (res) {
-                    setIsLoading(false);
-                }
-            } catch (err) {
-                setIsLoading(false);
-                toast.warn('Please login or register an account', { autoClose: 3000 });
-                console.log(err);
-                router.push('/login');
-            }
-        };
-        apiResponse();
-    }, [router]);
+        setIsLoading(false);
+        console.log({ loggedIn });
+    }, [loggedIn]);
 
     return (
         <div className="relative">
