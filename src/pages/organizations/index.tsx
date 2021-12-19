@@ -1,8 +1,7 @@
-import axios from 'axios';
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { getOrgs } from '../../apiHandlers/org';
 import Header from '../../components/Header';
 import Loader from '../../components/Loader';
 import Sidebar from '../../components/Sidebar';
@@ -17,39 +16,33 @@ interface Data {
     country: string;
 }
 
-const Organizations: NextPage = () => {
-    const router = useRouter();
+export const getServerSideProps: GetServerSideProps = async (): {
+    props: {
+        organizations: Data[];
+    };
+} => {
+    const { success, organizations } = await getOrgs();
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [organizations, setOrganizations] = useState<Data[]>([]);
+    if (!success) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        };
+    }
+
+    return {
+        props: { organizations },
+    };
+};
+
+const Organizations: NextPage = ({ organizations }: { organizations: Data[] }) => {
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const apiResponse = async () => {
-            const token = localStorage.getItem('relief_work-token') || '';
-
-            if (!token) {
-                router.push('/login');
-            }
-
-            try {
-                setIsLoading(true);
-
-                const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/org`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-
-                if (res) {
-                    setIsLoading(false);
-                    setOrganizations(res.data);
-                }
-            } catch (err) {
-                setIsLoading(false);
-                console.log(err);
-                router.push('/');
-            }
-        };
-        apiResponse();
-    }, [router]);
+        setIsLoading(false);
+    }, []);
 
     return (
         <div className="relative">
