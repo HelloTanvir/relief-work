@@ -2,7 +2,7 @@ import cookie from 'cookie';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 type Data = {
-    name: string;
+    success: boolean;
 };
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
@@ -19,7 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
         })
     );
 
-    res.status(200).json({ name: 'John Doe' });
+    res.status(200).json({ success: true });
 };
 
 export default handler;

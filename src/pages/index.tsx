@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from 'next';
+import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { getLoggedInUser } from '../apiHandlers/auth';
@@ -11,7 +11,7 @@ interface Data {
     user: any;
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }): { props: Data } => {
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const token = req.cookies.relief_work_token || '';
 
     const data = await getLoggedInUser(token);
@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }): { props: 
     };
 };
 
-const Home: NextPage = ({ loggedIn }: Data) => {
+const Home = ({ loggedIn }: Data) => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {

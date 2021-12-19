@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from 'next';
+import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { getProjects } from '../../apiHandlers/project';
@@ -30,13 +30,7 @@ interface Data {
     ];
 }
 
-export const getServerSideProps: GetServerSideProps = async ({
-    req,
-}): {
-    props: {
-        projects: Data[];
-    };
-} => {
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const token = req.cookies.relief_work_token || '';
 
     const { success, projects } = await getProjects(token);
@@ -55,7 +49,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     };
 };
 
-const Projects: NextPage = ({ projects }: { projects: Data[] }) => {
+const Projects = ({ projects }: { projects: Data[] }) => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {

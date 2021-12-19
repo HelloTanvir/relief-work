@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from 'next';
+import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { getOrgs } from '../../apiHandlers/org';
@@ -16,11 +16,7 @@ interface Data {
     country: string;
 }
 
-export const getServerSideProps: GetServerSideProps = async (): {
-    props: {
-        organizations: Data[];
-    };
-} => {
+export const getServerSideProps: GetServerSideProps = async () => {
     const { success, organizations } = await getOrgs();
 
     if (!success) {
@@ -37,7 +33,7 @@ export const getServerSideProps: GetServerSideProps = async (): {
     };
 };
 
-const Organizations: NextPage = ({ organizations }: { organizations: Data[] }) => {
+const Organizations = ({ organizations }: { organizations: Data[] }) => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
