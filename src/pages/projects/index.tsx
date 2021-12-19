@@ -1,8 +1,7 @@
-import axios from 'axios';
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { getProjects } from '../../apiHandlers/project';
 import BenefisiariesList from '../../components/BenefisiariesList';
 import Header from '../../components/Header';
 import Loader from '../../components/Loader';
@@ -31,39 +30,37 @@ interface Data {
     ];
 }
 
-const Projects: NextPage = () => {
-    const router = useRouter();
+export const getServerSideProps: GetServerSideProps = async ({
+    req,
+}): {
+    props: {
+        projects: Data[];
+    };
+} => {
+    const token = req.cookies.relief_work_token || '';
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [projects, setProjects] = useState<Data[]>([]);
+    const { success, projects } = await getProjects(token);
+
+    if (!success) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        };
+    }
+
+    return {
+        props: { projects },
+    };
+};
+
+const Projects: NextPage = ({ projects }: { projects: Data[] }) => {
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const apiResponse = async () => {
-            const token = localStorage.getItem('relief_work-token') || '';
-
-            if (!token) {
-                router.push('/login');
-            }
-
-            try {
-                setIsLoading(true);
-
-                const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/project`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                });
-
-                if (res) {
-                    setIsLoading(false);
-                    setProjects(res.data.projects);
-                }
-            } catch (err) {
-                setIsLoading(false);
-                console.log(err);
-                router.push('/');
-            }
-        };
-        apiResponse();
-    }, [router]);
+        setIsLoading(false);
+    }, []);
 
     return (
         <div className="relative">
