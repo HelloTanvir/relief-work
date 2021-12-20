@@ -1,19 +1,10 @@
 import { Turn as Hamburger } from 'hamburger-react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { IoLogOutOutline } from 'react-icons/io5';
-import { logOutUser } from '../apiHandlers/auth';
+import ProfileBtn from './ProfileBtn';
 
 const Header = () => {
-    const router = useRouter();
-
     const [open, setOpen] = useState(false);
-
-    const handleLogout = async () => {
-        await logOutUser();
-        router.push('/login');
-    };
 
     return (
         <header className="flex flex-col px-10 py-2 text-gray-700 md:items-center md:justify-between md:flex-row md:px-20 md:py-3 shadow border-b">
@@ -58,15 +49,8 @@ const Header = () => {
                     open ? 'flex' : 'hidden md:flex'
                 } justify-center gap-5 pb-4 mt-4 md:gap-3 md:mt-0 md:pb-0`}
             >
-                {/* btn-logout */}
-                <button
-                    type="button"
-                    className="px-4 py-1 transition-all duration-300 bg-gray-700 text-white rounded-md hover:bg-gray-600 flex items-center gap-1"
-                    onClick={handleLogout}
-                >
-                    <IoLogOutOutline />
-                    Logout
-                </button>
+                {/* btn-profile */}
+                <ProfileBtn />
             </div>
         </header>
     );
