@@ -1,12 +1,19 @@
 import { Turn as Hamburger } from 'hamburger-react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { IoLogOutOutline } from 'react-icons/io5';
+import { logOutUser } from '../apiHandlers/auth';
 
 const Header = () => {
+    const router = useRouter();
+
     const [open, setOpen] = useState(false);
 
-    const handleLogout = async () => {};
+    const handleLogout = async () => {
+        await logOutUser();
+        router.push('/login');
+    };
 
     return (
         <header className="flex flex-col px-10 py-2 text-gray-700 md:items-center md:justify-between md:flex-row md:px-20 md:py-3 shadow border-b">
