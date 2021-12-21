@@ -1,6 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import { useRouter } from 'next/router';
 import { Fragment } from 'react';
+import { AiOutlineUser } from 'react-icons/ai';
 import { BsChevronDown } from 'react-icons/bs';
 import { FiEdit } from 'react-icons/fi';
 import { IoLogOutOutline } from 'react-icons/io5';
@@ -17,7 +18,8 @@ const ProfileBtn = () => {
     return (
         <Menu as="div" className="relative">
             <div>
-                <Menu.Button className="flex items-center px-4 py-2 gap-2 text-sm font-medium tracking-wider text-white bg-gray-700 rounded-md  hover:bg-opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 transition-all duration-300">
+                <Menu.Button className="flex items-center px-4 py-2 gap-2 text-xs font-medium tracking-wider text-white bg-gray-700 rounded-md  hover:bg-opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 transition-all duration-300">
+                    <AiOutlineUser />
                     Profile
                     <BsChevronDown />
                 </Menu.Button>
