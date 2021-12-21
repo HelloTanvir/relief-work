@@ -1,6 +1,8 @@
 import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
+import { FiEdit } from 'react-icons/fi';
+import { MdDeleteForever } from 'react-icons/md';
 import { getProjects } from '../../apiHandlers/project';
 import BenefisiariesList from '../../components/BenefisiariesList';
 import Header from '../../components/Header';
@@ -78,70 +80,96 @@ const Projects = ({ projects }: { projects: Data[] }) => {
                         <div
                             // eslint-disable-next-line no-underscore-dangle
                             key={project._id}
-                            className="flex flex-col max-w-xl gap-3 px-5 py-6 bg-white shadow-md md:gap-1 md:w-screen rounded-xl"
+                            className="px-5 py-6 bg-white shadow-md flex flex-col gap-2 rounded-xl divide-y max-w-xl md:w-screen"
                         >
-                            <div className="flex flex-wrap items-center gap-2">
-                                <span className="text-lg font-medium tracking-wide">
-                                    {project.title}
-                                </span>
-                                <span className="text-sm tracking-wide text-gray-500">
-                                    ({project.status})
-                                </span>
-                            </div>
-
-                            <div className="flex flex-wrap items-center gap-2">
-                                <span className="font-medium text-gray-700">Organization :</span>
-                                <span className="text-sm tracking-wide text-gray-500">
-                                    {project.org.name}
-                                </span>
-                            </div>
-
-                            <div className="flex flex-wrap items-center gap-2">
-                                <span className="font-medium text-gray-700">District :</span>
-                                <span className="text-sm tracking-wide text-gray-500">
-                                    {project.district}
-                                </span>
-                            </div>
-
-                            <div className="flex flex-wrap items-center gap-2">
-                                <span className="font-medium text-gray-700">Thana :</span>
-                                <span className="text-sm tracking-wide text-gray-500">
-                                    {project.thana}
-                                </span>
-                            </div>
-
-                            <div className="flex flex-wrap items-center gap-2">
-                                <span className="font-medium text-gray-700">Venue :</span>
-                                <span className="text-sm tracking-wide text-gray-500">
-                                    {project.venue}
-                                </span>
-                            </div>
-
-                            <div className="flex flex-wrap items-center gap-2">
-                                <span className="font-medium text-gray-700">
-                                    Event Start Date :
-                                </span>
-                                <span className="text-sm tracking-wide text-gray-500">
-                                    {new Date(project.eventStartDate).toLocaleDateString('en-US')}
-                                </span>
-                            </div>
-
-                            {project.eventEndDate ? (
+                            <div className="flex flex-col w-full gap-3 md:gap-1">
                                 <div className="flex flex-wrap items-center gap-2">
-                                    <span className="font-medium text-gray-700">
-                                        Event End Date :
+                                    <span className="text-lg font-medium tracking-wide">
+                                        {project.title}
                                     </span>
                                     <span className="text-sm tracking-wide text-gray-500">
-                                        {new Date(project.eventEndDate).toLocaleDateString('en-US')}
+                                        ({project.status})
                                     </span>
                                 </div>
-                            ) : null}
 
-                            <BenefisiariesList benefisiaries={project.benefisiaries} />
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <span className="font-medium text-gray-700">
+                                        Organization :
+                                    </span>
+                                    <span className="text-sm tracking-wide text-gray-500">
+                                        {project.org.name}
+                                    </span>
+                                </div>
 
-                            <p className="text-sm font-medium text-gray-900">
-                                {project.description}
-                            </p>
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <span className="font-medium text-gray-700">District :</span>
+                                    <span className="text-sm tracking-wide text-gray-500">
+                                        {project.district}
+                                    </span>
+                                </div>
+
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <span className="font-medium text-gray-700">Thana :</span>
+                                    <span className="text-sm tracking-wide text-gray-500">
+                                        {project.thana}
+                                    </span>
+                                </div>
+
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <span className="font-medium text-gray-700">Venue :</span>
+                                    <span className="text-sm tracking-wide text-gray-500">
+                                        {project.venue}
+                                    </span>
+                                </div>
+
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <span className="font-medium text-gray-700">
+                                        Event Start Date :
+                                    </span>
+                                    <span className="text-sm tracking-wide text-gray-500">
+                                        {new Date(project.eventStartDate).toLocaleDateString(
+                                            'en-US'
+                                        )}
+                                    </span>
+                                </div>
+
+                                {project.eventEndDate ? (
+                                    <div className="flex flex-wrap items-center gap-2">
+                                        <span className="font-medium text-gray-700">
+                                            Event End Date :
+                                        </span>
+                                        <span className="text-sm tracking-wide text-gray-500">
+                                            {new Date(project.eventEndDate).toLocaleDateString(
+                                                'en-US'
+                                            )}
+                                        </span>
+                                    </div>
+                                ) : null}
+
+                                <BenefisiariesList benefisiaries={project.benefisiaries} />
+
+                                <p className="text-sm font-medium text-gray-900">
+                                    {project.description}
+                                </p>
+                            </div>
+
+                            {/* update and delete buttons */}
+                            <div className="flex gap-4 justify-end pt-2">
+                                <button
+                                    type="button"
+                                    className="rounded-md px-2 py-1 text-xs text-green-600 shadow-md flex items-center gap-1 hover:shadow transition-all duration-75"
+                                >
+                                    <FiEdit />
+                                    update
+                                </button>
+                                <button
+                                    type="button"
+                                    className="text-xs text-red-600 shadow-md px-2 rounded-md flex items-center gap-1 hover:shadow transition-all duration-75"
+                                >
+                                    <MdDeleteForever />
+                                    delete
+                                </button>
+                            </div>
                         </div>
                     ))}
                 </div>
