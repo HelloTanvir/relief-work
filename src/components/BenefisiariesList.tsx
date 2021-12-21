@@ -28,7 +28,7 @@ const BenefisiariesList: FC<Props> = ({ benefisiaries }) => {
                 <button
                     type="button"
                     onClick={openModal}
-                    className="flex items-center gap-2 px-4 py-1 text-white transition-all duration-300 bg-gray-700 rounded-md hover:bg-gray-600"
+                    className="flex items-center gap-2 px-4 py-1 text-white transition-all duration-300 bg-gray-700 rounded-md hover:bg-gray-600 text-sm tracking-wide"
                 >
                     <AiOutlineOrderedList />
                     Benefisiaries
