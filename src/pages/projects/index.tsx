@@ -1,9 +1,13 @@
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-alert */
+/* eslint-disable no-underscore-dangle */
 import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { FiEdit } from 'react-icons/fi';
 import { MdDeleteForever } from 'react-icons/md';
-import { getProjects } from '../../apiHandlers/project';
+import { deleteProject, getProjects } from '../../apiHandlers/project';
 import BenefisiariesList from '../../components/BenefisiariesList';
 import Header from '../../components/Header';
 import Loader from '../../components/Loader';
@@ -52,11 +56,30 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 };
 
 const Projects = ({ projects }: { projects: Data[] }) => {
+    const router = useRouter();
+
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         setIsLoading(false);
     }, []);
+
+    const deleteHandler = async (id: string) => {
+        if (!confirm('Are you sure you want to delete this project?')) {
+            return;
+        }
+
+        setIsLoading(true);
+
+        const { success } = await deleteProject(id);
+
+        if (success) {
+            // re render the page to see the update
+            router.replace(router.asPath);
+        }
+
+        setIsLoading(false);
+    };
 
     return (
         <div className="relative">
@@ -78,9 +101,8 @@ const Projects = ({ projects }: { projects: Data[] }) => {
                 <div className="flex flex-col items-center flex-1 gap-5 mt-5 mb-5 overflow-y-auto">
                     {projects.map((project) => (
                         <div
-                            // eslint-disable-next-line no-underscore-dangle
                             key={project._id}
-                            className="px-5 py-6 bg-white shadow-md flex flex-col gap-2 rounded-xl divide-y max-w-xl md:w-screen"
+                            className="flex flex-col max-w-xl gap-2 px-5 py-6 bg-white divide-y shadow-md rounded-xl md:w-screen"
                         >
                             <div className="flex flex-col w-full gap-3 md:gap-1">
                                 <div className="flex flex-wrap items-center gap-2">
@@ -97,7 +119,7 @@ const Projects = ({ projects }: { projects: Data[] }) => {
                                         Organization :
                                     </span>
                                     <span className="text-sm tracking-wide text-gray-500">
-                                        {project.org.name}
+                                        {project.org?.name}
                                     </span>
                                 </div>
 
@@ -154,17 +176,18 @@ const Projects = ({ projects }: { projects: Data[] }) => {
                             </div>
 
                             {/* update and delete buttons */}
-                            <div className="flex gap-4 justify-end pt-2">
+                            <div className="flex justify-end gap-4 pt-2">
                                 <button
                                     type="button"
-                                    className="rounded-md px-2 py-1 text-xs text-green-600 shadow-md flex items-center gap-1 hover:shadow transition-all duration-75"
+                                    className="flex items-center gap-1 px-2 py-1 text-xs text-green-600 transition-all duration-75 rounded-md shadow-md hover:shadow"
                                 >
                                     <FiEdit />
                                     update
                                 </button>
                                 <button
                                     type="button"
-                                    className="text-xs text-red-600 shadow-md px-2 rounded-md flex items-center gap-1 hover:shadow transition-all duration-75"
+                                    className="flex items-center gap-1 px-2 text-xs text-red-600 transition-all duration-75 rounded-md shadow-md hover:shadow"
+                                    onClick={() => deleteHandler(project._id)}
                                 >
                                     <MdDeleteForever />
                                     delete

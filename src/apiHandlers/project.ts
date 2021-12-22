@@ -12,14 +12,26 @@ export const getProjects = async (token: string) => {
     }
 };
 
-export const getSingleProject = async (token: string, orgId: string) => {
-    console.log({ token, orgId });
+export const getSingleProject = async (projectId: string) => {
+    console.log({ projectId });
 };
 
-export const updateProject = async (token: string, orgId: string) => {
-    console.log({ token, orgId });
+export const updateProject = async (projectId: string) => {
+    console.log({ projectId });
 };
 
-export const deleteProject = async (token: string, orgId: string) => {
-    console.log({ token, orgId });
+export const deleteProject = async (projectId: string) => {
+    try {
+        const {
+            data: { token },
+        } = await axios.get('/api/get-token');
+
+        const res = await axios.delete(`${process.env.NEXT_PUBLIC_API}/project/${projectId}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        return { success: true, deletedProject: res.data };
+    } catch (err) {
+        return { success: false, deletedProject: {} };
+    }
 };
