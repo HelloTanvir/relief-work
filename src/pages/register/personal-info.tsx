@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import TextField from '../../components/TextField';
-import { setPersonalInfo } from '../../store/rootSlice';
+import { setPersonalInfo } from '../../store/registerSlice';
 import { RootState } from '../../store/store';
 import fields from '../../utils/RegFormFields';
 import schema from '../../utils/RegFormSchema';
@@ -23,7 +23,9 @@ interface FormData {
 const Register: NextPage = () => {
     const router = useRouter();
     const dispatch = useDispatch();
-    const registrationData = useSelector<RootState, RootState>((state) => state);
+    const registrationData = useSelector<RootState, RootState['register']>(
+        (state) => state.register
+    );
 
     const {
         register,
@@ -67,10 +69,10 @@ const Register: NextPage = () => {
             </Head>
 
             <main
-                className="min-h-screen flex items-center justify-center md:py-0 py-12"
+                className="flex items-center justify-center min-h-screen py-12 md:py-0"
                 style={{ backgroundImage: 'url("/background.jpg")' }}
             >
-                <div className="flex flex-col items-center px-8 pt-6 pb-8 rounded-lg shadow-md bg-white">
+                <div className="flex flex-col items-center px-8 pt-6 pb-8 bg-white rounded-lg shadow-md">
                     {/* form header */}
                     <h1 className="mb-6 text-2xl font-medium">Register an account</h1>
 

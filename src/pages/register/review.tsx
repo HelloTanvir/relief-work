@@ -10,7 +10,9 @@ import { RootState } from '../../store/store';
 
 const Review: NextPage = () => {
     const router = useRouter();
-    const registrationData = useSelector<RootState, RootState>((state) => state);
+    const registrationData = useSelector<RootState, RootState['register']>(
+        (state) => state.register
+    );
 
     const [isLoading, setIsLoading] = useState(false);
 

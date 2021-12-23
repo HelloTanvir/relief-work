@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import TextField from '../../components/TextField';
-import { setOrgInfo } from '../../store/rootSlice';
+import { setOrgInfo } from '../../store/registerSlice';
 import { RootState } from '../../store/store';
 import fields from '../../utils/RegFormFields';
 import schema from '../../utils/RegFormSchema';
@@ -22,7 +22,9 @@ interface FormData {
 const Register: NextPage = () => {
     const router = useRouter();
     const dispatch = useDispatch();
-    const registrationData = useSelector<RootState, RootState>((state) => state);
+    const registrationData = useSelector<RootState, RootState['register']>(
+        (state) => state.register
+    );
 
     const {
         register,
