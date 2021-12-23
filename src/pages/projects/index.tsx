@@ -7,13 +7,15 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { FiEdit } from 'react-icons/fi';
 import { MdDeleteForever } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
 import { deleteProject, getProjects } from '../../apiHandlers/project';
 import BenefisiariesList from '../../components/BenefisiariesList';
 import Header from '../../components/Header';
 import Loader from '../../components/Loader';
 import Sidebar from '../../components/Sidebar';
+import { setProject } from '../../store/projectSlice';
 
-interface Data {
+export interface Project {
     _id: string;
     org: {
         name: string;
@@ -26,14 +28,12 @@ interface Data {
     venue: string;
     eventStartDate: string;
     eventEndDate: string;
-    benefisiaries: [
-        {
-            _id: string;
-            status: string;
-            name: string;
-            occupasion: string;
-        }
-    ];
+    benefisiaries: {
+        _id: string;
+        status: string;
+        name: string;
+        occupasion: string;
+    }[];
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
@@ -55,14 +55,17 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
 };
 
-const Projects = ({ projects }: { projects: Data[] }) => {
+const Projects = ({ projects }: { projects: Project[] }) => {
     const router = useRouter();
+    const dispatch = useDispatch();
 
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        setIsLoading(false);
-    }, []);
+        if (projects) {
+            setIsLoading(false);
+        }
+    }, [projects]);
 
     const deleteHandler = async (id: string) => {
         if (!confirm('Are you sure you want to delete this project?')) {
@@ -79,6 +82,12 @@ const Projects = ({ projects }: { projects: Data[] }) => {
         }
 
         setIsLoading(false);
+    };
+
+    const updateHandler = (id: string) => {
+        const project = projects.find((p) => p._id === id);
+        dispatch(setProject(project));
+        router.push(`${router.asPath}/${id}`);
     };
 
     return (
@@ -180,6 +189,7 @@ const Projects = ({ projects }: { projects: Data[] }) => {
                                 <button
                                     type="button"
                                     className="flex items-center gap-1 px-2 py-1 text-xs text-green-600 transition-all duration-75 rounded-md shadow-md hover:shadow"
+                                    onClick={() => updateHandler(project._id)}
                                 >
                                     <FiEdit />
                                     update
