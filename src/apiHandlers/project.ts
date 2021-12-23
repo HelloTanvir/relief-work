@@ -1,4 +1,5 @@
 import axios from 'axios';
+import type { Project } from '../pages/projects';
 
 export const getProjects = async (token: string) => {
     try {
@@ -16,8 +17,20 @@ export const getSingleProject = async (projectId: string) => {
     console.log({ projectId });
 };
 
-export const updateProject = async (projectId: string) => {
-    console.log({ projectId });
+export const updateProject = async (projectId: string, data: Project) => {
+    try {
+        const {
+            data: { token },
+        } = await axios.get('/api/get-token');
+
+        const res = await axios.patch(`${process.env.NEXT_PUBLIC_API}/project/${projectId}`, data, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        return { success: true, updatedProject: res.data };
+    } catch (err) {
+        return { success: false, updatedProject: {} };
+    }
 };
 
 export const deleteProject = async (projectId: string) => {
