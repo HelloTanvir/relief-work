@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { FiEdit } from 'react-icons/fi';
 import { MdDeleteForever } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import { deleteProject, getProjects } from '../../apiHandlers/project';
 import BenefisiariesList from '../../components/BenefisiariesList';
 import Header from '../../components/Header';
@@ -86,6 +87,12 @@ const Projects = ({ projects }: { projects: Project[] }) => {
 
     const updateHandler = (id: string) => {
         const project = projects.find((p) => p._id === id);
+
+        if (!project) {
+            toast.error('No product id found', { autoClose: 3000 });
+            return;
+        }
+
         dispatch(setProject(project));
         router.push(`${router.asPath}/${id}`);
     };

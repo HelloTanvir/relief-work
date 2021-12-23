@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { LoginData } from '../pages/login';
+// eslint-disable-next-line no-unused-vars
 import { RootState } from '../store/store';
 
 export const logInUser = async (data: LoginData) => {
@@ -17,7 +18,7 @@ export const logInUser = async (data: LoginData) => {
     }
 };
 
-export const registerUser = async (data: RootState) => {
+export const registerUser = async (data: RootState['register']) => {
     try {
         const res = await axios.post(`${process.env.NEXT_PUBLIC_API}/auth/register`, data);
         const { token }: { token: string } = res.data;
