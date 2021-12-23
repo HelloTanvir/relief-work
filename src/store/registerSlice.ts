@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
-const rootSlice = createSlice({
+const registerSlice = createSlice({
     name: 'root',
     initialState: {
         name: '',
@@ -63,6 +63,8 @@ const rootSlice = createSlice({
     },
 });
 
-export const { reducer } = rootSlice;
+export const { setOrgInfo, setPersonalInfo } = registerSlice.actions;
 
-export const { setOrgInfo, setPersonalInfo } = rootSlice.actions;
+const registerReducer = registerSlice.reducer;
+
+export default registerReducer;

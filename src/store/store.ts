@@ -1,8 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { reducer } from './rootSlice';
+import projectReducer from './projectSlice';
+import registerReducer from './registerSlice';
 
 const store = configureStore({
-    reducer,
+    reducer: {
+        register: registerReducer,
+        project: projectReducer,
+    },
 });
 
 export default store;
