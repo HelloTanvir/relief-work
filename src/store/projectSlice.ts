@@ -32,6 +32,7 @@ const projectSlice = createSlice({
             state.description = action.payload.description;
             state.district = action.payload.district;
             state.thana = action.payload.thana;
+            state.venue = action.payload.venue;
             state.eventStartDate = action.payload.eventStartDate;
             state.eventEndDate = action.payload.eventEndDate;
         },
