@@ -1,5 +1,4 @@
 import axios from 'axios';
-import type { Project } from '../pages/projects';
 
 export const getProjects = async (token: string) => {
     try {
@@ -17,7 +16,7 @@ export const getSingleProject = async (projectId: string) => {
     console.log({ projectId });
 };
 
-export const updateProject = async (projectId: string, data: Project) => {
+export const updateProject = async (projectId: string, data: any) => {
     try {
         const {
             data: { token },
