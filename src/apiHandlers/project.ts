@@ -1,5 +1,21 @@
 import axios from 'axios';
 
+export const createProject = async (data: any) => {
+    try {
+        const {
+            data: { token },
+        } = await axios.get('/api/get-token');
+
+        const res = await axios.post(`${process.env.NEXT_PUBLIC_API}/project`, data, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        return { success: true, createdProject: res.data };
+    } catch (err) {
+        return { success: false, createdProject: {} };
+    }
+};
+
 export const getProjects = async (token: string) => {
     try {
         const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/project`, {
