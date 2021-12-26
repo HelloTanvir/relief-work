@@ -12,7 +12,7 @@ import Sidebar from '../../components/Sidebar';
 import TextField from '../../components/TextField';
 import { RootState } from '../../store/store';
 import fields from '../../utils/ProjectFormFields';
-import schema from '../../utils/ProjectFormSchema';
+import { schemaForUpdate as schema } from '../../utils/ProjectFormSchema';
 
 interface FormData {
     orgName: string;
@@ -137,19 +137,21 @@ const Projects = () => {
                         onSubmit={handleSubmit(submitForm)}
                     >
                         <div>
-                            {fields.map((field) => (
-                                <TextField
-                                    key={field.name}
-                                    label={field.label}
-                                    type={field.type}
-                                    placeholder={field.placeholder}
-                                    name={field.name}
-                                    className="mt-4 md:w-96"
-                                    // @ts-ignore
-                                    error={errors[field.name]?.message}
-                                    register={register}
-                                />
-                            ))}
+                            {fields
+                                .filter((field) => field.forUpdate)
+                                .map((field) => (
+                                    <TextField
+                                        key={field.name}
+                                        label={field.label}
+                                        type={field.type}
+                                        placeholder={field.placeholder}
+                                        name={field.name}
+                                        className="mt-4 md:w-96"
+                                        // @ts-ignore
+                                        error={errors[field.name]?.message}
+                                        register={register}
+                                    />
+                                ))}
                         </div>
 
                         <button
