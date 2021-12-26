@@ -18,7 +18,7 @@ const ProfileBtn = () => {
     return (
         <Menu as="div" className="relative">
             <div>
-                <Menu.Button className="flex items-center px-4 py-2 gap-2 text-xs font-medium tracking-wider text-white bg-gray-700 rounded-md  hover:bg-opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 transition-all duration-300">
+                <Menu.Button className="flex items-center gap-2 px-4 py-2 text-xs font-medium tracking-wider text-white transition-all duration-300 bg-gray-700 rounded-md hover:bg-opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
                     <AiOutlineUser />
                     Profile
                     <BsChevronDown />
@@ -34,7 +34,7 @@ const ProfileBtn = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
             >
-                <Menu.Items className="absolute left-0 md:left-auto md:right-0 w-max md:w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                <Menu.Items className="absolute left-0 z-50 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg md:left-auto md:right-0 w-max md:w-56 ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="px-1 py-1 ">
                         <Menu.Item>
                             {({ active }) => (
@@ -43,10 +43,9 @@ const ProfileBtn = () => {
                                     className={`${
                                         active ? 'bg-gray-300 text-white' : 'text-gray-900'
                                     } transition-all duration-300 flex rounded-md items-center gap-1 px-2 py-2 text-xs md:text-sm w-full`}
-                                    onClick={handleLogout}
                                 >
-                                    <IoLogOutOutline />
-                                    Logout
+                                    <FiEdit />
+                                    Update Organization
                                 </button>
                             )}
                         </Menu.Item>
@@ -60,9 +59,29 @@ const ProfileBtn = () => {
                                     className={`${
                                         active ? 'bg-gray-300 text-white' : 'text-gray-900'
                                     } transition-all duration-300 flex rounded-md items-center gap-1 px-2 py-2 text-xs md:text-sm w-full`}
+                                    onClick={() => {
+                                        router.push('/projects/create');
+                                    }}
                                 >
                                     <FiEdit />
-                                    Update Organization
+                                    Create Project
+                                </button>
+                            )}
+                        </Menu.Item>
+                    </div>
+
+                    <div className="px-1 py-1 ">
+                        <Menu.Item>
+                            {({ active }) => (
+                                <button
+                                    type="button"
+                                    className={`${
+                                        active ? 'bg-gray-300 text-white' : 'text-gray-900'
+                                    } transition-all duration-300 flex rounded-md items-center gap-1 px-2 py-2 text-xs md:text-sm w-full`}
+                                    onClick={handleLogout}
+                                >
+                                    <IoLogOutOutline />
+                                    Logout
                                 </button>
                             )}
                         </Menu.Item>
