@@ -48,7 +48,7 @@ const fields = [
     },
     {
         label: 'Event Start Date',
-        type: 'text',
+        type: 'date',
         name: 'eventStartDate',
         placeholder: 'Event Start Date',
         forCreate: true,
@@ -56,7 +56,7 @@ const fields = [
     },
     {
         label: 'Event End Date',
-        type: 'text',
+        type: 'date',
         name: 'eventEndDate',
         placeholder: 'Event End Date',
         forCreate: true,
