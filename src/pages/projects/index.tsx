@@ -110,11 +110,11 @@ const Projects = ({ projects }: { projects: Project[] }) => {
 
             <Header />
 
-            <main style={{ height: 'calc(100vh - 57px)' }} className="flex gap-5 pr-5 bg-gray-50">
+            <main style={{ height: 'calc(100vh - 57px)' }} className="flex gap-5 bg-gray-50">
                 <Sidebar />
 
                 {/* cards wrapper */}
-                <div className="flex flex-col items-center flex-1 gap-5 mt-5 mb-5 overflow-y-auto">
+                <div className="flex flex-col items-center flex-1 gap-5 py-5 overflow-y-auto">
                     {projects.map((project) => (
                         <div
                             key={project._id}
