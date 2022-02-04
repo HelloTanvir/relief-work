@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Layout from '../components/Layout';
 import Loader from '../components/Loader';
 import store from '../store/store';
 import '../styles/globals.css';
@@ -34,7 +35,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     return (
         <Provider store={store}>
             <ToastContainer />
-            {loading ? <Loader /> : <Component {...pageProps} />}
+            {loading ? (
+                <Loader />
+            ) : (
+                <Layout>
+                    <Component {...pageProps} />
+                </Layout>
+            )}
         </Provider>
     );
 }

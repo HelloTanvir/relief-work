@@ -10,7 +10,7 @@ const Sidebar = () => {
     const [collapsed, setCollapsed] = useState(true);
 
     return (
-        <div style={{ height: 'calc(100vh - 57px)' }} className="border-r shadow w-max">
+        <div className="border-r shadow w-max h-[calc(100vh-57px)]">
             <ProSidebar width={250} collapsed={collapsed}>
                 <SidebarHeader className="flex justify-end py-3 pr-5 bg-gray-200">
                     <BsArrowLeftRight
