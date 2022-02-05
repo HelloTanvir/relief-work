@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import projectReducer from './projectSlice';
 import registerReducer from './registerSlice';
+import stateReducer from './stateSlice';
 
 const store = configureStore({
     reducer: {
         register: registerReducer,
         project: projectReducer,
+        state: stateReducer,
     },
 });
 
