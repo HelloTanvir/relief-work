@@ -1,13 +1,17 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import Header from './Header';
 import Loader from './Loader';
 import Sidebar from './Sidebar';
 
-const Layout: React.FC = ({ children }) => {
+interface Props {
+    children?: ReactNode;
+}
+
+const Layout = ({ children }: Props) => {
     const router = useRouter();
 
     const { isLoading, title } = useSelector<RootState, RootState['state']>((store) => store.state);
@@ -16,7 +20,7 @@ const Layout: React.FC = ({ children }) => {
 
     // if the rendered page is login or register page, no need to render header and sidebar here
     if (isAuthPage) {
-        return children;
+        return <>{children}</>;
     }
 
     return (
